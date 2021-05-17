@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MusicLibrary.Infrastructure.Data;
 
 namespace MusicLibrary.Infrastructure.Migrations
 {
     [DbContext(typeof(MusicLibraryDbContext))]
-    partial class MusicLibraryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210514062004_SongAndRelatedEntities")]
+    partial class SongAndRelatedEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

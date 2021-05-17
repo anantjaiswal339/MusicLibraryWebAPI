@@ -9,9 +9,9 @@ namespace MusicLibrary.Infrastructure.Interfaces
     public interface IArtistService
     {
         Task<IEnumerable<Artist>> GetArtists();
-        Task<Albums> GetArtistById(int id);
+        Task<Artist> GetArtistById(int id);
         Task SaveArtist(Artist album);
-        Task<Artist> UpdateArtist(int id, Artist album);
+        Task UpdateArtist(int id, Artist album);
         Task<Artist> DeleteArtist(int id);
     }
 }

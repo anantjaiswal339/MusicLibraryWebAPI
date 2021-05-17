@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MusicLibrary.Infrastructure.Data;
 
 namespace MusicLibrary.Infrastructure.Migrations
 {
     [DbContext(typeof(MusicLibraryDbContext))]
-    partial class MusicLibraryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210514061056_AddedSongAndRelatedEntities")]
+    partial class AddedSongAndRelatedEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,84 +246,6 @@ namespace MusicLibrary.Infrastructure.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("MusicLibrary.Infrastructure.Entities.Artist", b =>
-                {
-                    b.Property<int>("ArtistId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ArtistInfo")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ArtistName")
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DOB")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("ArtistId");
-
-                    b.ToTable("Artist");
-                });
-
-            modelBuilder.Entity("MusicLibrary.Infrastructure.Entities.Genre", b =>
-                {
-                    b.Property<int>("GenreId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("GenreName")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("GenreId");
-
-                    b.ToTable("Genre");
-                });
-
-            modelBuilder.Entity("MusicLibrary.Infrastructure.Entities.Songs", b =>
-                {
-                    b.Property<long>("SongId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("AlbumId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<float>("Duration")
-                        .HasColumnType("REAL");
-
-                    b.Property<string>("SongName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SongThumb")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("SongId");
-
-                    b.ToTable("Songs");
-                });
-
-            modelBuilder.Entity("MusicLibrary.Infrastructure.Entities.SongsDetail", b =>
-                {
-                    b.Property<long>("SongDetailId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ArtistId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ArtistType")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("SongId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("SongDetailId");
-
-                    b.ToTable("SongsDetail");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

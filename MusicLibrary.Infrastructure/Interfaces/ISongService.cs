@@ -10,9 +10,9 @@ namespace MusicLibrary.Infrastructure.Interfaces
     public interface ISongService
     {
         Task<IEnumerable<SongViewModel>> GetSongs();
-        Task<SongCreateModel> GetSongById(int id);
-        Task SaveSong(SongCreateModel model);
+        Task<SongCreateModel> GetSongById(Int64 id);
+        Task<SongCreateModel> SaveSong(SongCreateModel model);
 
-        Task<Songs> DeleteSong(int id);
+        Task<Songs> DeleteSong(Int64 id);
     }
 }

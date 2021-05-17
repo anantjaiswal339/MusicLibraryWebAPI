@@ -1,4 +1,6 @@
-﻿using MusicLibrary.Infrastructure.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using MusicLibrary.Infrastructure.Data;
+using MusicLibrary.Infrastructure.Entities;
 using MusicLibrary.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,29 +11,41 @@ namespace MusicLibrary.Infrastructure.Services
 {
     public class ArtistService : IArtistService
     {
-        public Task<Artist> DeleteArtist(int id)
+        private readonly MusicLibraryDbContext _context;
+        public ArtistService(MusicLibraryDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public async Task<Artist> DeleteArtist(int id)
+        {
+            var artist = await _context.Artist.FindAsync(id);
+            if (artist != null)
+                _context.Artist.Remove(artist);
+
+            return artist;
         }
 
-        public Task<Albums> GetArtistById(int id)
+        public async Task<Artist> GetArtistById(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Artist.FindAsync(id);
         }
 
-        public Task<IEnumerable<Artist>> GetArtists()
+        public async Task<IEnumerable<Artist>> GetArtists()
         {
-            throw new NotImplementedException();
+            return await _context.Artist.ToListAsync();
         }
 
-        public Task SaveArtist(Artist album)
+        public async Task SaveArtist(Artist artist)
         {
-            throw new NotImplementedException();
+            _context.Add(artist);
+            await _context.SaveChangesAsync();
+
         }
 
-        public Task<Artist> UpdateArtist(int id, Artist album)
+        public async Task UpdateArtist(int id, Artist artist)
         {
-            throw new NotImplementedException();
+            _context.Entry(artist).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
     }
 }

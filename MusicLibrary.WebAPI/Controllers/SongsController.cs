@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MusicLibrary.Infrastructure.Interfaces;
+using MusicLibrary.Infrastructure.Models;
 using MusicLibrary.Infrastructure.Models.Songs;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace MusicLibrary.WebAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SongsController : ControllerBase
@@ -26,7 +29,7 @@ namespace MusicLibrary.WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> Get(Int64 id)
         {
             var song = await _songService.GetSongById(id);
             if (song == null)
@@ -43,10 +46,27 @@ namespace MusicLibrary.WebAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            await _songService.SaveSong(model);
-            return CreatedAtAction("Get", new { id = model.SongId }, model);
+            var song =  await _songService.SaveSong(model);
+            return CreatedAtAction("Get", new { id = song.SongId }, model);
         }
 
 
+        [Authorize(Roles = UserRoles.Admin)]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Int64 id)
+        {
+            try
+            {
+                var song = await _songService.DeleteSong(id);
+                if (song == null)
+                    return NotFound();
+
+                return Ok("Deleted Successfully!");
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Failed to delete record!");
+            }
+        }
     }
 }

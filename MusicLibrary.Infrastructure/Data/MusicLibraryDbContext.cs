@@ -11,6 +11,10 @@ namespace MusicLibrary.Infrastructure.Data
     {
         public DbSet<Albums> Albums { get; set; }
         public DbSet<AlbumComposers> AlbumComposers { get; set; }
+        public DbSet<Songs> Songs { get; set; }
+        public DbSet<SongsDetail> SongsDetail { get; set; }
+        public DbSet<Artist> Artist { get; set; }
+        public DbSet<Genre> Genre { get; set; }
 
         public MusicLibraryDbContext(DbContextOptions<MusicLibraryDbContext> options) : base(options) { }
 
